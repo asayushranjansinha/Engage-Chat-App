@@ -1,3 +1,8 @@
 interface AuthFormProps {
-    type:"register" | "login"
+    type: "register" | "login"
+    userData: {
+        username: string;
+        email: string;
+        password: string;
+    }
 }

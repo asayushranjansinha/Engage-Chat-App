@@ -95,7 +95,7 @@
   @apply w-[300px] max-sm:w-full bg-transparent outline-none;
 }
 .button {
-  @apply w-full px-5 py-3 mt-5 mb-7 rounded-xl cursor-pointer bg-blue-1 hover:bg-blue-2 text-white text-[18px] font-bold;
+  @apply w-full px-5 py-3 mt-5 mb-7 rounded-xl cursor-pointer bg-blue-1 hover:bg-blue-2 text-white text-[18px] font-bold focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50;
 }
 .link {
   @apply text-base font-medium hover:text-blue-700 transition-colors duration-100;
