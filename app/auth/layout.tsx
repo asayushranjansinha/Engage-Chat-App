@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "../globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "@/components/ui/theme-toggle";
+import AuthSessionProvider from "@/components/auth/auth-session-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,10 +27,12 @@ export default function AuthLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
-          <div className="fixed bottom-4 right-4">
-            <ModeToggle />
-          </div>
+          <AuthSessionProvider>
+            {children}
+            <div className="fixed bottom-4 right-4">
+              <ModeToggle />
+            </div>
+          </AuthSessionProvider>
         </ThemeProvider>
       </body>
     </html>

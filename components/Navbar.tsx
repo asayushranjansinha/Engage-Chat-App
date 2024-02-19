@@ -1,6 +1,6 @@
 import Image from "next/image";
-import ShimmerButton from "./ui/shimmer-button";
 import { Button } from "./ui/button";
+import Link from "next/link";
 
 const Navbar = () => {
   return (
@@ -20,7 +20,9 @@ const Navbar = () => {
             Engage
           </h2>
         </div>
-        <Button variant="outline">Join Us</Button>
+        <Button asChild variant="outline">
+          <Link href="/auth/login">Login</Link>
+        </Button>
       </div>
     </div>
   );
