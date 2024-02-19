@@ -1,31 +1,29 @@
-"use client";
-import React, { useState } from "react";
-import { HoveredLink, Menu, MenuItem, ProductItem } from "@/components/ui/navbar-menu";
-import { cn } from "@/utils/cn";
+import Image from "next/image";
+import ShimmerButton from "./ui/shimmer-button";
+import { Button } from "./ui/button";
 
-function Navbar({ className }: { className?: string }) {
-    const [active, setActive] = useState<string | null>(null);
-    return (
-      <div
-        className={cn("fixed top-10 inset-x-0 max-w-2xl mx-auto z-50", className)}
-      >
-        <Menu setActive={setActive}>
-          <MenuItem setActive={setActive} active={active} item="Services">
-            <div className="flex flex-col space-y-4 text-sm">
-              <HoveredLink href="/web-dev">Web Development</HoveredLink>
-              <HoveredLink href="/interface-design">Interface Design</HoveredLink>
-              <HoveredLink href="/seo">Search Engine Optimization</HoveredLink>
-              <HoveredLink href="/branding">Branding</HoveredLink>
-            </div>
-          </MenuItem>
-          <MenuItem setActive={setActive} active={active} item="Products">
-            
-          </MenuItem>
-          <MenuItem setActive={setActive} active={active} item="Pricing">
-           
-          </MenuItem>
-        </Menu>
+const Navbar = () => {
+  return (
+    <div className="fixed top-0 inset-x-0 backdrop-filter backdrop-blur-lg">
+      <div className="container mx-auto py-4 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <Image
+            src="/logo.png"
+            alt="avatar"
+            height="60"
+            width="60"
+            // className="h-10 w-24"
+            quality={100}
+            priority
+          />
+          <h2 className="hidden sm:block text-3xl font-semibold antialiased text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-500 via-cyan-500 to-fuchsia-500">
+            Engage
+          </h2>
+        </div>
+        <Button variant="outline">Join Us</Button>
       </div>
-    );
-  }
+    </div>
+  );
+};
+
 export default Navbar;
