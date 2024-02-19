@@ -6,6 +6,7 @@ import "../globals.css";
 import AuthSessionProvider from "@/components/auth/auth-session-provider";
 import Navbar from "@/components/navbar";
 
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
