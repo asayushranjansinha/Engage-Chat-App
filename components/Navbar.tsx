@@ -1,6 +1,7 @@
-import Image from "next/image";
-import { Button } from "./ui/button";
-import Link from "next/link";
+import Image from 'next/image'
+import React from 'react'
+import { Button } from './ui/button'
+import Link from 'next/link'
 
 const Navbar = () => {
   return (
@@ -25,7 +26,7 @@ const Navbar = () => {
         </Button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar
