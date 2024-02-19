@@ -4,7 +4,7 @@ import { Button } from "./ui/button";
 
 const Navbar = () => {
   return (
-    <div className="fixed top-0 inset-x-0 backdrop-filter backdrop-blur-lg">
+    <div className="fixed top-0 inset-x-0 backdrop-filter backdrop-blur-lg z-[99999]">
       <div className="container mx-auto py-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Image
