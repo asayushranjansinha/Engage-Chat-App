@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "../globals.css";
+import AuthSessionProvider from "@/components/auth/auth-session-provider";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "@/components/ui/theme-toggle";
-import AuthSessionProvider from "@/components/auth/auth-session-provider";
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import { Toaster } from "sonner";
+import "../globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,6 +28,8 @@ export default function AuthLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <Toaster position="top-center" />
+
           <AuthSessionProvider>
             {children}
             <div className="fixed bottom-4 right-4">

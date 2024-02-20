@@ -1,4 +1,4 @@
-import AuthForm from "@/components/forms/AuthForm";
+import RegisterForm from "@/components/forms/register";
 
 const Register = () => {
   const defaultValues = {
@@ -6,7 +6,7 @@ const Register = () => {
     email: "",
     password: "",
   };
-  return <AuthForm type="register" userData={defaultValues} />;
+  return <RegisterForm defaultValues={defaultValues}/>;
 };
 
 export default Register;

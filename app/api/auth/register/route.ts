@@ -10,7 +10,7 @@ export const POST = async (req: Request) => {
         // Check if the user already exists
         const existingUser = await User.findOne({ email });
         if (existingUser) {
-            return new Response("User already exists!", { status: 409 });
+            return new Response(JSON.stringify({ message: "User already registered" }), { status: 409 });
         }
 
         // Create a new user
@@ -23,12 +23,12 @@ export const POST = async (req: Request) => {
         const createdUser = await User.findById(user._id).select("-password");
 
         if (!createdUser) {
-            return new Response("Failed to create a new user", { status: 500 });
+            return new Response(JSON.stringify({ message: "Internal server error" }), { status: 500 });
         }
 
-        return new Response(JSON.stringify(createdUser), { status: 201 });
-    } catch (err) {
-        console.error(err);
-        return new Response("Failed to create a new user", { status: 500 });
+        return new Response(JSON.stringify({ message: "User signup successful.", user: createdUser }), { status: 201 });
+    } catch (err: any) {
+        console.log("Failed to create user: ", err);
+        return new Response(JSON.stringify({ message: "Internal server error" }), { status: 500 });
     }
 };

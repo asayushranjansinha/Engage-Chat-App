@@ -1,12 +1,11 @@
-import AuthForm from "@/components/forms/AuthForm";
+import SignInForm from "@/components/forms/signin";
 
 const LoginPage = () => {
-  const userData = {
+  const defaultValues = {
     username: "",
     password: "",
-    email: "",
   };
-  return <AuthForm type="login" userData={userData} />;
+  return <SignInForm defaultValues={defaultValues}/>;
 };
 
 export default LoginPage;

@@ -5,6 +5,7 @@ const userSchema = new mongoose.Schema({
   username: {
     type: String,
     required: [true, "Username is required!"],
+    lowercase: true,
   },
   email: {
     type: String,
@@ -15,6 +16,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "Password is required!"]
   },
+  name: {
+    type: String,
+    default: "",
+  },
   profileImage: {
     type: String,
     default: "",
@@ -23,7 +28,7 @@ const userSchema = new mongoose.Schema({
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Chat" }],
     default: [],
   },
-});
+}, { timestamps: true });
 
 // methods
 userSchema.pre("save", async function (next) {
