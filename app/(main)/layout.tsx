@@ -5,7 +5,7 @@ import { Inter } from "next/font/google";
 import "../globals.css";
 import AuthSessionProvider from "@/components/auth/auth-session-provider";
 import NavbarSection from "@/components/navbar-section";
-
+import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,6 +28,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <Toaster position="top-center" />
           <AuthSessionProvider>
             <div>
               <NavbarSection />

@@ -7,11 +7,11 @@ declare module "next-auth" {
    */
   interface Session {
     user: {
-      /** The user's postal address. */
+      _id: mongoose.Schema.Types.ObjectId,
       username: string | undefined,
       name: string | undefined,
       email: string | undefined,
-      profileImage:string,
+      profileImage: string,
     } & DefaultSession["user"]
   }
 }

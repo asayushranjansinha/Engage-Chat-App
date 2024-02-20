@@ -13,17 +13,14 @@ import { CldUploadButton } from "next-cloudinary";
 import { Lock, SquareUserRound } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { IconEdit, IconSignature } from "@tabler/icons-react";
+import { toast } from "sonner";
 
 const schema = z.object({
   name: z.string().min(3, { message: "Name must be at least 3 characters" }),
   username: z
     .string()
     .min(3, { message: "Username must be at least 3 characters" }),
-  email: z
-    .string()
-    .min(1, { message: "Email is required" })
-    .email("Invalid email address"),
-  password: z.string(),
+  password: z.string().optional(),
   profileImage: z.string(),
 });
 
@@ -31,6 +28,7 @@ type ValidationSchemaType = z.infer<typeof schema>;
 const PRESET = process.env.NEXT_PUBLIC_CLOUDINARY_PRESET_NAME;
 
 const ProfilePage: React.FC = () => {
+  const [loading, setLoading] = useState(false);
   const [isEditable, setEditable] = useState(false);
   const { data: session } = useSession();
   const currentUser = session?.user;
@@ -59,7 +57,32 @@ const ProfilePage: React.FC = () => {
   };
 
   const updateUser: SubmitHandler<ValidationSchemaType> = async (data) => {
-    console.log(data);
+    const apiEndPoint = `/api/users/${currentUser?._id}/update`;
+    try {
+      setEditable(false);
+      const serverResponse = await fetch(apiEndPoint, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      let responseJson = await serverResponse.json();
+      //   Check for failure
+      if (!serverResponse.ok) {
+        toast.error(responseJson.message);
+        return;
+      }
+
+      //   Successful request
+      toast.success(responseJson.message);
+      // console.log(responseJson);
+      window.location.reload();
+    } catch (error) {
+      console.log("Error during profile update: ", error);
+      toast.error("Profile update Failed!");
+    }
   };
 
   const handleEdit = () => {
@@ -67,11 +90,11 @@ const ProfilePage: React.FC = () => {
   };
   useEffect(() => {
     if (currentUser) {
-      console.log(currentUser);
+      // console.log(currentUser);
       setUserDetails();
-      //   setLoading(false);
+      setLoading(false);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser]);
 
   return (
@@ -79,7 +102,9 @@ const ProfilePage: React.FC = () => {
       <div className="container-class">
         <div className="content">
           <div className="gap-4 flex items-center justify-between">
-            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold">Edit Your Profile</h1>
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold">
+              Edit Your Profile
+            </h1>
             <button onClick={handleEdit}>
               <IconEdit color="#737373" />
             </button>
@@ -131,6 +156,7 @@ const ProfilePage: React.FC = () => {
                   type="password"
                   placeholder="Password"
                   className="input-field"
+                  disabled={!isEditable}
                 />
                 <Lock color="#737373" />
               </div>
