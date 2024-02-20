@@ -61,25 +61,25 @@ const SkeletonOne = () => {
     <motion.div
       initial="initial"
       whileHover="animate"
-      className="flex flex-1 w-full h-full min-h-[6rem] bg-green-100 dark:bg-green-700 rounded-lg flex-col justify-center space-y-2"
+      className="flex flex-1 w-full h-full min-h-[6rem] bg-green-100 dark:bg-green-700 rounded-lg flex-col justify-center space-y-2 p-2"
     >
       <motion.div
         variants={variants}
-        className="mx-2 flex flex-row rounded-full border p-2 items-center space-x-2 bg-white dark:bg-black"
+        className="flex flex-row rounded-full border p-2 items-center space-x-2 bg-white dark:bg-black"
       >
         <div className="h-6 w-6 rounded-full bg-gradient-to-r from-pink-500 to-violet-500 flex-shrink-0" />
         <div className="w-full h-4 bg-slate-300 dark:bg-slate-700 rounded-full" />
       </motion.div>
       <motion.div
         variants={variantsSecond}
-        className="mx-2 flex flex-row rounded-full border p-2 items-center space-x-2 w-3/4 ml-auto bg-white dark:bg-black"
+        className="flex flex-row rounded-full border p-2 items-center space-x-2 w-3/4 ml-auto bg-white dark:bg-black"
       >
         <div className="w-full bg-slate-300 dark:bg-slate-700 h-4 rounded-full" />
         <div className="h-6 w-6 rounded-full bg-gradient-to-r from-pink-500 to-violet-500 flex-shrink-0" />
       </motion.div>
       <motion.div
         variants={variants}
-        className="mx-2 flex flex-row rounded-full border p-2 items-center space-x-2 bg-white dark:bg-black"
+        className="flex flex-row rounded-full border p-2 items-center space-x-2 bg-white dark:bg-black"
       >
         <div className="h-6 w-6 rounded-full bg-gradient-to-r from-pink-500 to-violet-500 flex-shrink-0" />
         <div className="w-full bg-slate-300 dark:bg-slate-700 h-4 rounded-full" />
@@ -111,7 +111,7 @@ const SkeletonTwo = () => {
       initial="initial"
       animate="animate"
       whileHover="hover"
-      className="flex flex-1 w-full h-full min-h-[6rem] bg-green-100 dark:bg-green-700 rounded-lg flex-col justify-center space-y-2 px-2"
+      className="flex flex-1 w-full h-full min-h-[6rem] bg-green-100 dark:bg-green-700 rounded-lg flex-col justify-center space-y-2 p-2"
     >
       {arr.map((_, i) => (
         <motion.div
@@ -268,7 +268,7 @@ const SkeletonFive = () => {
     <motion.div
       initial="initial"
       whileHover="animate"
-      className="flex flex-1 w-full h-full min-h-[6rem] bg-green-100 dark:bg-green-700 flex-col justify-center space-y-2 px-2 rounded-lg"
+      className="flex flex-1 w-full h-full min-h-[6rem] bg-green-100 dark:bg-green-700 flex-col justify-center space-y-2 p-2 rounded-lg"
     >
       <motion.div
         variants={variants}
