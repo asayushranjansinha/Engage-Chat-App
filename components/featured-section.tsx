@@ -1,13 +1,12 @@
 "use client";
-import { cn } from "@/utils/cn";
-import React from "react";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
+import { cn } from "@/utils/cn";
 import {
   IconBoxAlignRightFilled,
-  IconClipboardCopy,
-  IconFileBroken,
-  IconSignature,
-  IconTableColumn,
+  IconLock,
+  IconMessages,
+  IconNotification,
+  IconUsersGroup
 } from "@tabler/icons-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -62,28 +61,28 @@ const SkeletonOne = () => {
     <motion.div
       initial="initial"
       whileHover="animate"
-      className="flex flex-1 w-full h-full min-h-[6rem] bg-dot-red-800 flex-col space-y-2"
+      className="flex flex-1 w-full h-full min-h-[6rem] bg-green-100 dark:bg-green-700 rounded-lg flex-col justify-center space-y-2"
     >
       <motion.div
         variants={variants}
-        className="flex flex-row rounded-full border p-2 items-center space-x-2 bg-white dark:bg-black"
+        className="mx-2 flex flex-row rounded-full border p-2 items-center space-x-2 bg-white dark:bg-black"
       >
         <div className="h-6 w-6 rounded-full bg-gradient-to-r from-pink-500 to-violet-500 flex-shrink-0" />
-        <div className="w-full bg-secondary h-4 rounded-full" />
+        <div className="w-full h-4 bg-slate-300 dark:bg-slate-700 rounded-full" />
       </motion.div>
       <motion.div
         variants={variantsSecond}
-        className="flex flex-row rounded-full border p-2 items-center space-x-2 w-3/4 ml-auto bg-white dark:bg-black"
+        className="mx-2 flex flex-row rounded-full border p-2 items-center space-x-2 w-3/4 ml-auto bg-white dark:bg-black"
       >
-        <div className="w-full bg-secondary h-4 rounded-full" />
+        <div className="w-full bg-slate-300 dark:bg-slate-700 h-4 rounded-full" />
         <div className="h-6 w-6 rounded-full bg-gradient-to-r from-pink-500 to-violet-500 flex-shrink-0" />
       </motion.div>
       <motion.div
         variants={variants}
-        className="flex flex-row rounded-full border p-2 items-center space-x-2 bg-white dark:bg-black"
+        className="mx-2 flex flex-row rounded-full border p-2 items-center space-x-2 bg-white dark:bg-black"
       >
         <div className="h-6 w-6 rounded-full bg-gradient-to-r from-pink-500 to-violet-500 flex-shrink-0" />
-        <div className="w-full bg-secondary h-4 rounded-full" />
+        <div className="w-full bg-slate-300 dark:bg-slate-700 h-4 rounded-full" />
       </motion.div>
     </motion.div>
   );
@@ -106,13 +105,13 @@ const SkeletonTwo = () => {
       },
     },
   };
-  const arr = new Array(6).fill(0);
+  const arr = new Array(5).fill(0);
   return (
     <motion.div
       initial="initial"
       animate="animate"
       whileHover="hover"
-      className="flex flex-1 w-full h-full min-h-[6rem] bg-dot-red-800 flex-col space-y-2"
+      className="flex flex-1 w-full h-full min-h-[6rem] bg-green-100 dark:bg-green-700 rounded-lg flex-col justify-center space-y-2 px-2"
     >
       {arr.map((_, i) => (
         <motion.div
@@ -121,7 +120,7 @@ const SkeletonTwo = () => {
           style={{
             maxWidth: Math.random() * (100 - 40) + 40 + "%",
           }}
-          className="flex flex-row rounded-full border p-2 items-center space-x-2 bg-white dark:bg-black w-full h-4"
+          className="flex flex-row rounded-full p-2 items-center space-x-2 bg-slate-300 dark:bg-slate-700 w-full h-4"
         ></motion.div>
       ))}
     </motion.div>
@@ -146,7 +145,7 @@ const SkeletonThree = () => {
         repeat: Infinity,
         repeatType: "reverse",
       }}
-      className="flex flex-1 w-full h-full min-h-[6rem] rounded-lg bg-dot-red-800 flex-col space-y-2"
+      className="flex flex-1 w-full h-full min-h-[6rem] rounded-lg flex-col space-y-2"
       style={{
         background:
           "linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab)",
@@ -183,7 +182,7 @@ const SkeletonFour = () => {
       initial="initial"
       animate="animate"
       whileHover="hover"
-      className="flex flex-1 w-full h-full min-h-[6rem] bg-dot-red-800 flex-row space-x-2"
+      className="flex flex-1 w-full h-full min-h-[6rem] bg-grid-small-red-800/60 flex-row space-x-2"
     >
       <motion.div
         variants={first}
@@ -199,7 +198,7 @@ const SkeletonFour = () => {
         <p className="sm:text-sm text-xs text-center font-semibold text-muted-foreground mt-4">
           Share moments, share laughter.
         </p>
-        <p className="border border-red-500 bg-red-100 dark:bg-red-900/20 text-red-600 text-xs rounded-full px-2 py-0.5 mt-4">
+        <p className="border border-green-500 bg-green-100 dark:bg-green-900/20 text-green-600 text-xs rounded-full px-2 py-0.5 mt-4">
           Comfort
         </p>
       </motion.div>
@@ -214,7 +213,7 @@ const SkeletonFour = () => {
         <p className="sm:text-sm text-xs text-center font-semibold text-muted-foreground mt-4">
           Bringing people closer, effortlessly.
         </p>
-        <p className="border border-green-500 bg-green-100 dark:bg-green-900/20 text-green-600 text-xs rounded-full px-2 py-0.5 mt-4">
+        <p className="border border-blue-500 bg-blue-100 dark:bg-blue-900/20 text-blue-600 text-xs rounded-full px-2 py-0.5 mt-4">
           Relaxation
         </p>
       </motion.div>
@@ -232,7 +231,7 @@ const SkeletonFour = () => {
         <p className="sm:text-sm text-xs text-center font-semibold text-muted-foreground mt-4">
           Chatting made personal, just for you.
         </p>
-        <p className="border border-orange-500 bg-orange-100 dark:bg-orange-900/20 text-orange-600 text-xs rounded-full px-2 py-0.5 mt-4">
+        <p className="border border-amber-500 bg-amber-100 dark:bg-amber-900/20 text-amber-600 text-xs rounded-full px-2 py-0.5 mt-4">
           Playfulness
         </p>
       </motion.div>
@@ -269,7 +268,7 @@ const SkeletonFive = () => {
     <motion.div
       initial="initial"
       whileHover="animate"
-      className="flex flex-1 w-full h-full min-h-[6rem] bg-dot-red-800 flex-col space-y-2"
+      className="flex flex-1 w-full h-full min-h-[6rem] bg-green-100 dark:bg-green-700 flex-col justify-center space-y-2 px-2 rounded-lg"
     >
       <motion.div
         variants={variants}
@@ -280,10 +279,10 @@ const SkeletonFive = () => {
           alt="avatar"
           height="100"
           width="100"
-          className="rounded-full h-10 w-10 shrink-0"
+          className="rounded-full h-8 w-8 shrink-0"
         />
         <p className="text-xs text-muted-foreground">
-          Suggest me the best chatting app you have used till date?
+          Could you please suggest the best texting app you have used?
         </p>
       </motion.div>
       <motion.div
@@ -308,16 +307,18 @@ const items = [
     ),
     header: <SkeletonOne />,
     className: "md:col-span-1",
-    icon: <IconClipboardCopy className="h-4 w-4 text-neutral-500" />,
+    icon: <IconLock   className="h-4 w-4 text-neutral-500" />,
   },
   {
     title: "Endless Conversations",
     description: (
-      <span className="text-sm">Chat without limits, anytime, anywhere.</span>
+      <span className="text-sm">
+        Chat without limits, anytime, anywhere. Everything at your convenience.
+      </span>
     ),
     header: <SkeletonTwo />,
     className: "md:col-span-1",
-    icon: <IconFileBroken className="h-4 w-4 text-neutral-500" />,
+    icon: <IconMessages  className="h-4 w-4 text-neutral-500" />,
   },
   {
     title: "Dual Theme",
@@ -328,7 +329,7 @@ const items = [
     ),
     header: <SkeletonThree />,
     className: "md:col-span-1",
-    icon: <IconSignature className="h-4 w-4 text-neutral-500" />,
+    icon: <IconBoxAlignRightFilled className="h-4 w-4 text-neutral-500" />,
   },
   {
     title: "Real-Time Notifications",
@@ -339,7 +340,7 @@ const items = [
     ),
     header: <SkeletonFour />,
     className: "md:col-span-2",
-    icon: <IconTableColumn className="h-4 w-4 text-neutral-500" />,
+    icon: <IconNotification  className="h-4 w-4 text-neutral-500" />,
   },
 
   {
@@ -351,6 +352,6 @@ const items = [
     ),
     header: <SkeletonFive />,
     className: "md:col-span-1",
-    icon: <IconBoxAlignRightFilled className="h-4 w-4 text-neutral-500" />,
+    icon: <IconUsersGroup  className="h-4 w-4 text-neutral-500" />,
   },
 ];
