@@ -98,7 +98,7 @@ const ProfilePage: React.FC = () => {
   }, [currentUser]);
 
   return (
-    <div className="page">
+    <main className="page">
       <div className="container-class">
         <div className="content">
           <div className="gap-4 flex items-center justify-between">
@@ -197,7 +197,7 @@ const ProfilePage: React.FC = () => {
           </form>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 
