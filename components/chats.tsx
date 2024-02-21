@@ -31,11 +31,11 @@ const Chats = () => {
   }, [currentUser]);
 
   return (
-    <div className="h-full w-full grid grid-cols-1 justify-items-start items-center p-2 bg-white dark:bg-black rounded-lg overflow-y-scroll custom-scrollbar">
+    <div className="h-full w-full flex flex-col p-2 bg-white dark:bg-black rounded-lg overflow-y-scroll custom-scrollbar">
       {chats.map((chat: any, index) => (
         <div
           key={index}
-          className="relative group block w-full p-2"
+          className="relative group block h-fit w-full p-2"
           onMouseEnter={() => setHoveredIndex(index)}
           onMouseLeave={() => setHoveredIndex(null)}
         >

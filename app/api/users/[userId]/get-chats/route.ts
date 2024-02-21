@@ -11,46 +11,31 @@ export const GET = async (req: Request, { params }: { params: { userId: string }
         // Extract userId from params
         const { userId } = params;
 
-        // Check if user exists
-        const userExists = await User.exists({ _id: userId });
-        if (!userExists) {
+        // Find the user and populate the 'chats' field
+        const user = await User.findById(userId).populate({
+            path: 'chats',
+            options: { sort: { lastMessageAt: -1 } },
+            populate: {
+                path: 'members',
+                match: { _id: { $ne: userId } }, // Exclude the current user
+                select: 'username profileImage' // Select only required fields
+            }
+        });
+
+        if (!user) {
             return new Response(JSON.stringify({ message: "User does not exist", data: null }), { status: 404 });
         }
 
 
-        // Find all chats where the user is a member and aggregate members
-        const chats = await Chat.aggregate([
-            {
-                $match: { members: new mongoose.Types.ObjectId(userId) }
-            },
-            {
-                $lookup: {
-                    from: "users",
-                    localField: "members",
-                    foreignField: "_id",
-                    as: "members"
-                }
-            },
-            {
-                $project: {
-                    "members": {
-                        $filter: {
-                            input: "$members",
-                            as: "member",
-                            cond: { $ne: ["$$member._id", new mongoose.Types.ObjectId(userId)] }
-                        }
-                    },
-                    messages: 1,
-                    isGroup: 1,
-                    groupPhoto: 1,
-                    lastMessageAt: 1,
-                    _id:1,
-                }
-            },
-            {
-                $sort: { lastMessageAt: -1 }
-            }
-        ]);
+        // Extract chat details from the populated 'chats' field
+        const chats = user.chats.map((chat: any) => ({
+            _id: chat._id,
+            messages: chat.messages,
+            isGroup: chat.isGroup,
+            groupPhoto: chat.groupPhoto,
+            lastMessageAt: chat.lastMessageAt,
+            members: chat.members
+        }));
 
         if (!chats) {
             return new Response(JSON.stringify({ message: "No chats found", data: null }), { status: 200 });
