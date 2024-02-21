@@ -83,8 +83,6 @@ const ContactList = () => {
     }
   }, [currentUser]);
 
-  console.log(selectedContacts);
-
   return (
     <section className="w-full h-[80svh] max-h-[1280px] flex flex-col items-center gap-2 sm:gap-4 py-4 px-2 overflow-hidden">
       <input placeholder="Search Contacts..." className="input-search" />
