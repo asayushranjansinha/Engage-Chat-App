@@ -6,12 +6,12 @@ const CreateChatPage = () => {
     <main className="w-full min-h-svh bg-purple-1 dark:bg-background">
       <div className="container mx-auto py-10 pt-20 flex gap-5 max-lg:gap-8">
         {/* Chat list wrapper */}
-        <div className="w-1/3 max-lg:w-1/2 max-md:w-full">
+        <div className="w-1/3 max-lg:w-1/2 max-md:hidden">
           <ChatList />
         </div>
 
         {/* Contact list wrapper */}
-        <div className="w-2/3 max-lg:w-1/2 max-md:hidden">
+        <div className="w-2/3 max-lg:w-1/2 max-md:w-full">
           <ContactList />
         </div>
       </div>
