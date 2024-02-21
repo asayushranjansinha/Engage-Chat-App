@@ -20,6 +20,10 @@ const config = {
       },
     },
     extend: {
+      backgroundImage: {
+        'blue-background': "url('../public/blue-background.jpg')",
+        'green-background': "url('../public/green-background.jpg')",
+      },
       colors: {
         "blue-1": "#0A065C",
         "blue-2": "#090552",

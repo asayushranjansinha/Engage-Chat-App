@@ -14,8 +14,9 @@ export interface ILoginFormProps {
     }
 }
 export interface IUser extends Document {
-    _id: mongoose.Schema.Types.ObjectId;
+    _id:string;
     username: string;
+    name: string;
     email: string;
     image: string;
     profileImage: string;

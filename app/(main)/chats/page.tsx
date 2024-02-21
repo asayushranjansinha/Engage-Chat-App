@@ -1,7 +1,7 @@
 import ChatList from "@/components/chat-list";
 import ContactList from "@/components/contact-list";
 
-const ChatPage = () => {
+const CreateChatPage = () => {
   return (
     <main className="w-full min-h-svh bg-purple-1 dark:bg-background">
       <div className="container mx-auto py-10 pt-20 flex gap-5 max-lg:gap-8">
@@ -19,4 +19,4 @@ const ChatPage = () => {
   );
 };
 
-export default ChatPage;
+export default CreateChatPage;
