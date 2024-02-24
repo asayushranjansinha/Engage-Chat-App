@@ -1,6 +1,18 @@
 import bcrypt from 'bcrypt';
 import mongoose from "mongoose";
 
+export interface IUserDocument extends Document {
+  _id:mongoose.Schema.Types.ObjectId;
+  username: string;
+  email: string;
+  password: string;
+  name: string;
+  profileImageUrl?: string;
+  online: boolean;
+  lastActive?: Date;
+  groups?: mongoose.Schema.Types.ObjectId[];
+}
+
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -9,7 +21,7 @@ const userSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    unique: [true, "Email already exist!"],
+    unique: [true, "Email already exists!"],
     required: [true, "Email is required!"],
   },
   password: {
@@ -20,13 +32,17 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
-  profileImage: {
+  profileImageUrl: {
     type: String,
     default: "",
   },
-  chats: {
-    type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Chat" }],
-    default: [],
+  online: {
+    type: Boolean,
+    default: false
+  },
+  lastActive: {
+    type: Date,
+    default: Date.now,
   },
 }, { timestamps: true });
 
@@ -42,4 +58,4 @@ userSchema.methods.isPasswordCorrect = async function (password: string) {
   return await bcrypt.compare(password, this.password)
 }
 
-export const User = mongoose.models.User || mongoose.model("User", userSchema);
+export const User = mongoose.models.User || mongoose.model<IUserDocument>('User', userSchema);

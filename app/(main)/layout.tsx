@@ -34,9 +34,6 @@ export default function RootLayout({
               <NavbarSection />
             </div>
             {children}
-            <div className="fixed bottom-4 right-4">
-              <ModeToggle />
-            </div>
           </AuthSessionProvider>
         </ThemeProvider>
       </body>

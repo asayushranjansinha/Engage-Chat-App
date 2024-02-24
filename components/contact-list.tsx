@@ -1,5 +1,6 @@
 "use client";
-import { IUser } from "@/types";
+import { IUserDocument } from "@/mongoDB/models/user.model";
+import { ConversationType, IUser } from "@/types";
 import { IconSquareCheck, IconSquareCheckFilled } from "@tabler/icons-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -8,12 +9,14 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 const ContactList = () => {
-  const [contacts, setContacts] = useState<IUser[]>([]);
+  const [contacts, setContacts] = useState<IUserDocument[]>([]);
   const [selectedContacts, setSelectedContacts] = useState<string[]>([]);
+  const [conversationType, setConversationType] =
+    useState<ConversationType | null>(null);
 
   const { data: session } = useSession();
   const currentUser = session?.user;
-  
+
   const router = useRouter();
 
   const getContacts = async () => {
@@ -43,9 +46,15 @@ const ContactList = () => {
     } else {
       setSelectedContacts((prev) => [...prev, contact._id]);
     }
+
+    if (selectedContacts.length >= 1) {
+      setConversationType(ConversationType.GROUP);
+    } else {
+      setConversationType(ConversationType.INDIVIDUAL);
+    }
   };
 
-  const createChat = async () => {
+  const createNewConversation = async () => {
     const apiEndPoint = "/api/chats";
     try {
       toast.loading("Creating Conversation... Please wait!");
@@ -55,9 +64,8 @@ const ContactList = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          sender: currentUser?._id,
-          recipients: selectedContacts,
-          isGroup: selectedContacts.length > 1,
+          type: conversationType,
+          recipients: [currentUser?._id, ...selectedContacts],
         }),
       });
 
@@ -70,10 +78,10 @@ const ContactList = () => {
 
       //   Successful request
       toast.success("Redirecting to Chat");
-      router.push(`/chats/${responseJson?.data}`)
+      router.push(`/chats/${responseJson?.data}`);
     } catch (error) {
       console.error("Error creating chat:", error);
-    } finally{
+    } finally {
       toast.dismiss();
     }
   };
@@ -81,6 +89,7 @@ const ContactList = () => {
     if (currentUser) {
       getContacts();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser]);
 
   return (
@@ -112,7 +121,7 @@ const ContactList = () => {
             </div>
           ))}
         </div>
-        <button className="button" onClick={createChat}>
+        <button className="button" onClick={createNewConversation}>
           Start Chat
         </button>
       </div>

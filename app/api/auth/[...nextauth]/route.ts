@@ -49,6 +49,9 @@ const handler = NextAuth({
                         throw new Error("Invalid Username or Password");
                     }
 
+                    user.lastActive = Date.now();
+                    await user.save();
+                    
                     // Return user if authentication succeeds
                     return user;
                 } catch (error: any) {
@@ -67,34 +70,44 @@ const handler = NextAuth({
             return session;
         },
         async signIn({ account, profile }) {
-            if (account?.provider === "google") {
-                try {
-                    await connectDB();
-                    /* Check if the user exist */
-                    let user = await User.findOne({ email: profile?.email }).select("-password");
-                    const userInfo = {
-                        name: profile?.name,
-                        username: (profile as any)?.given_name.toLowerCase(),
-                        email: profile?.email,
-                        password: "defaultpassword",
-                        profileImage: (profile as any)?.picture ? (profile as any)?.picture : ""
-                    };
-                    // console.log(userInfo)
-                    if (user) return user;
-
-                    if (!user) {
-                        user = await User.create(userInfo);
-                    }
-
-                    const createdUser = await User.findById(user._id).select("-password");
-                    return createdUser;
-
-                } catch (err: any) {
-                    console.log("Error checking if user exists: ", err?.message);
-                }
+            if (account?.provider !== "google") {
+                throw new Error("Unsupported provider. Currently only supports Google.");
             }
 
-            return true
+            try {
+                // Connect to database
+                await connectDB();
+                // Check for existing user using email 
+                const user = await User.findOne({ email: profile?.email }).select("-password");
+
+                // console.log(profile)
+                // if user exists update necessary details (e.g., name, picture)
+                if (user) {
+
+                    user.name = profile?.name;
+                    user.profileImageUrl = (profile as any)?.picture ? (profile as any)?.picture : "";
+                    user.lastActive = Date.now();
+                    await user.save();
+
+                    // console.log("Updated user:", user);
+                    return user;
+
+                }
+
+
+                // Create new user with details
+                const newUser = await User.create({
+                    username: (profile as any)?.given_name.toLowerCase(),
+                    email: profile?.email,
+                    password: "defaultpassword",
+                    profileImageUrl: (profile as any)?.picture ? (profile as any)?.picture : "",
+                });
+
+                return newUser;
+            } catch (error) {
+                console.error("Error signing in: via google", error);
+                throw error;
+            }
         },
     }
 });

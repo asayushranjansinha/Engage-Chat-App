@@ -1,15 +1,33 @@
-import { Chat } from "@/mongoDB/models/chat.model";
+import { Conversation } from "@/mongoDB/models/conversation.model";
 import { User } from "@/mongoDB/models/user.model";
 
 export const POST = async (req: Request) => {
     try {
         const body = await req.json()
-        const { sender, recipients, isGroup } = body;
+        const { recipients, type } = body;
 
-        // Check if sender exists
-        const userExists = await User.exists({ _id: sender });
-        if (!userExists) {
-            return new Response(JSON.stringify({ message: "Sender not found", data: null }), { status: 404 });
+        // Validate request data
+        if (!recipients || !type) {
+            return new Response(JSON.stringify(
+                { message: "Missing required fields!", data: null }),
+                { status: 400 }
+            );
+        }
+
+        // Check valid conversation type
+        if (type !== 'individual' && type !== 'group') {
+            return new Response(JSON.stringify(
+                { message: "Invalid conversation type!", data: null }),
+                { status: 400 }
+            );
+        }
+
+        // Validate participants based on conversation type
+        if (type === 'individual' && recipients.length !== 2) {
+            return new Response(JSON.stringify(
+                { message: "Individual chats require 2 participants!", data: null }),
+                { status: 400 }
+            );
         }
 
         // Check if all recipients exist
@@ -19,25 +37,29 @@ export const POST = async (req: Request) => {
 
         }
 
-        // Create a new chat
-        const newChat = new Chat({
-            members: [sender, ...recipients],
-            messages: [],
-            isGroup,
+        const existingConversation = await Conversation.findOne({
+            participants: recipients,
+        });
+        
+        if (existingConversation) {
+            return new Response(JSON.stringify(
+                { message: "Conversation already exists!", data: existingConversation?._id }),
+                { status: 200 }
+            );
+        }
+
+        // Create new conversation document
+        const newConversation = await Conversation.create({
+            type,
+            participants: recipients,
+            createdOn: Date.now(),
         });
 
-        // Save the chat to the database
-        await newChat.save();
-
-        // Update sender and recipients' chats arrays to include the new chat ID
-        await User.updateMany(
-            { _id: { $in: [sender, ...recipients] } },
-            { $push: { chats: newChat._id } }
-        );
-
         // Send created chat as response
-        return new Response(JSON.stringify({ message: "Chat created successfully", data: newChat?._id }), { status: 201 })
-
+        return new Response(JSON.stringify(
+            { message: "Started conversation successfully", data: newConversation?._id }),
+            { status: 201 }
+        );
     } catch (error) {
         console.error("Error creating chat:", error);
         return new Response(JSON.stringify({ message: "Internal Server Error", chat: null }), { status: 201 })

@@ -4,6 +4,7 @@ import React from "react";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
+import { ModeToggle } from "./ui/theme-toggle";
 
 const NavbarSection = () => {
   const { data: session } = useSession();
@@ -25,12 +26,13 @@ const NavbarSection = () => {
             Engage
           </h2>
         </Link>
+        <ModeToggle />
         {session?.user ? (
           <div className="flex items-center gap-2">
             <Button asChild variant="outline">
               <Link href="/profile">Profile</Link>
             </Button>
-            <Button variant="outline" onClick={()=>signOut()}>
+            <Button variant="outline" onClick={() => signOut()}>
               Logout
             </Button>
           </div>

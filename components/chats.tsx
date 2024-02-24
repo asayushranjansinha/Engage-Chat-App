@@ -56,7 +56,7 @@ const Chats = () => {
               />
             )}
           </AnimatePresence>
-          <ChatBox chat={chat} />
+          <ChatBox />
         </div>
       ))}
     </div>

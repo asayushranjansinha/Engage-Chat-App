@@ -22,4 +22,9 @@ export interface IUser extends Document {
     profileImage: string;
     chats: mongoose.Schema.Types.ObjectId[];
 }
+
+export enum ConversationType {
+    GROUP = 'group',
+    INDIVIDUAL = 'individual',
+  }
 export interface IProfilePageProps extends IUser{}
