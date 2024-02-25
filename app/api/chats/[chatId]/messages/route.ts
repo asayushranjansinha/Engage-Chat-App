@@ -29,19 +29,16 @@ export const POST = async (req: Request, { params }: { params: { chatId: string 
             );
         }
 
-        // Determine recipient based on conversation type and message data:
-        let recipients = conversation.participants.filter((id: mongoose.Schema.Types.ObjectId) =>
-            id.toString() !== sender.toString());
-
-        console.log(recipients);
-
+        const currentTime = Date.now();
 
         // Create new Message Document
         const newMessage = await Message.create({
             conversation: conversation._id,
             sender,
             content,
+            sentOn: currentTime,
         });
+
         if (!newMessage) {
             return new Response(JSON.stringify(
                 { message: "Failed to create message!", data: newMessage }),
@@ -49,17 +46,18 @@ export const POST = async (req: Request, { params }: { params: { chatId: string 
             );
         }
 
-        conversation.lastMessage = newMessage._id; 
+        conversation.lastMessage = newMessage._id;
+        conversation.lastMessageAt = currentTime;
         await conversation.save();
 
-        console.log("Message created: ")
+        console.log("Conversation Updated: ", newMessage)
         return new Response(JSON.stringify(
             { message: "Message sent successfully!", data: newMessage }),
             { status: 200 }
         );
 
     } catch (error) {
-        console.log("Error sending message: ",error);
+        console.log("Error sending message: ", error);
         return new Response(JSON.stringify(
             { message: "Internal Server Error!", data: null }),
             { status: 500 }

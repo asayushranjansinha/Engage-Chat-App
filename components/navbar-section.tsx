@@ -5,9 +5,12 @@ import { Button } from "./ui/button";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 import { ModeToggle } from "./ui/theme-toggle";
+import { useAuthModal } from "./hooks/authmodal-store";
 
 const NavbarSection = () => {
+  const authModal = useAuthModal();
   const { data: session } = useSession();
+
   return (
     <div className="fixed top-0 inset-x-0 bg-transparent backdrop-filter backdrop-blur-sm z-[99999]">
       <div className="container mx-auto py-4 flex items-center justify-between">
@@ -26,21 +29,25 @@ const NavbarSection = () => {
             Engage
           </h2>
         </Link>
-        <ModeToggle />
-        {session?.user ? (
-          <div className="flex items-center gap-2">
-            <Button asChild variant="outline">
-              <Link href="/profile">Profile</Link>
+
+        {/* navigation */}
+        <nav className="flex items-center gap-2">
+          <ModeToggle />
+          {session?.user ? (
+            <div className="flex items-center gap-2">
+              <Button asChild variant="outline">
+                <Link href="/profile">Profile</Link>
+              </Button>
+              <Button variant="outline" onClick={() => signOut()}>
+                Logout
+              </Button>
+            </div>
+          ) : (
+            <Button variant="outline" onClick={authModal.onOpen}>
+              Login
             </Button>
-            <Button variant="outline" onClick={() => signOut()}>
-              Logout
-            </Button>
-          </div>
-        ) : (
-          <Button asChild variant="outline">
-            <Link href="/auth/login">Login</Link>
-          </Button>
-        )}
+          )}
+        </nav>
       </div>
     </div>
   );

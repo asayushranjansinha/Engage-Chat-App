@@ -1,10 +1,12 @@
 import { Conversation } from "@/mongoDB/models/conversation.model";
+import { Group } from "@/mongoDB/models/group.model";
 import { User } from "@/mongoDB/models/user.model";
+import { ConversationType } from "@/types";
 
 export const POST = async (req: Request) => {
     try {
         const body = await req.json()
-        const { recipients, type } = body;
+        const { recipients, type, groupName, groupDescription } = body;
 
         // Validate request data
         if (!recipients || !type) {
@@ -40,7 +42,7 @@ export const POST = async (req: Request) => {
         const existingConversation = await Conversation.findOne({
             participants: recipients,
         });
-        
+
         if (existingConversation) {
             return new Response(JSON.stringify(
                 { message: "Conversation already exists!", data: existingConversation?._id }),
@@ -48,7 +50,34 @@ export const POST = async (req: Request) => {
             );
         }
 
-        // Create new conversation document
+        // Create a new group if the conversation type is "group"
+        if (type === ConversationType.GROUP) {
+            // Create new group document
+            const newGroup = await Group.create({
+                name: groupName,
+                description: groupDescription,
+                members: recipients,
+            });
+
+            // Create new conversation document
+            const newConversation = await Conversation.create({
+                type,
+                participants: recipients,
+                group: newGroup._id,
+            });
+
+            // Link group with conversation
+            newGroup.conversation = newConversation._id;
+            await newGroup.save();
+
+            // Send created chat as response
+            return new Response(JSON.stringify(
+                { message: "Started conversation successfully", data: newConversation._id }),
+                { status: 201 }
+            );
+        }
+
+        // Create new conversation document for individual chats
         const newConversation = await Conversation.create({
             type,
             participants: recipients,

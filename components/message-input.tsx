@@ -51,7 +51,7 @@ const MessageInput = () => {
       });
 
       let responseJson = await serverResponse.json();
-      console.log(responseJson)
+      // console.log(responseJson)
     } catch (error) {}
   };
   return (

@@ -1,11 +1,11 @@
+import AuthSessionProvider from "@/components/auth/auth-session-provider";
 import { ThemeProvider } from "@/components/theme-provider";
-import { ModeToggle } from "@/components/ui/theme-toggle";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "../globals.css";
-import AuthSessionProvider from "@/components/auth/auth-session-provider";
-import NavbarSection from "@/components/navbar-section";
 import { Toaster } from "sonner";
+import "../globals.css";
+import NavbarSection from "@/components/navbar-section";
+import ModalProvider from "@/components/modal.provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,6 +30,7 @@ export default function RootLayout({
         >
           <Toaster position="top-center" />
           <AuthSessionProvider>
+            <ModalProvider />
             <div>
               <NavbarSection />
             </div>
