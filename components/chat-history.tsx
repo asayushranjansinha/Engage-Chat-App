@@ -17,7 +17,7 @@ const ChatHistorySection = () => {
       >
         {Array.from({ length: 20 }).map((item, idx) => (
           <Link
-            href={"#"}
+            href={"/chats/randomchat"}
             key={idx}
             className="relative group block p-1 h-fit w-full"
             onMouseEnter={() => setHoveredIndex(idx)}
