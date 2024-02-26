@@ -1,4 +1,19 @@
 "use client";
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  IconFiles,
+  IconMusic,
+  IconPaperclip,
+  IconPhoto,
+  IconVideo,
+} from "@tabler/icons-react";
 import React, { useState } from "react";
 import { Input } from "./ui/input";
 import { IconSend } from "@tabler/icons-react";
@@ -55,21 +70,45 @@ const MessageInput = () => {
     } catch (error) {}
   };
   return (
-    <div className="relative">
+    <div className="w-full relative group flex items-center gap-1 p-1 bg-white dark:bg-black rounded-lg">
       <Input
-        placeholder="Type Here..."
-        type="text"
-        value={message}
-        onChange={handleMessageChange}
-        onKeyDown={handleSendMessage}
+        placeholder="Type Here"
+        autoFocus
+        alt="Message Input"
+        className="bg-transparent border-none"
       />
-      <Button
-        variant="default"
-        size="icon"
-        className="absolute top-1/2 right-0 transform -translate-y-1/2 cursor-pointer"
-        onClick={handleSendMessage}
-      >
-        <IconSend />
+      {/* Attach Files */}
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost">
+            <IconPaperclip className="text-[#737373]" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="mr-2">
+          <DropdownMenuLabel>Attachments</DropdownMenuLabel>
+
+          <DropdownMenuItem>
+            <IconFiles className="mr-2 h-4 w-4" />
+            <span>Files</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <IconMusic className="mr-2 h-4 w-4" />
+            <span>Audio</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <IconVideo className="mr-2 h-4 w-4" />
+            <span>Video</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <IconPhoto className="mr-2 h-4 w-4" />
+            <span>Photo</span>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+
+      {/* Send */}
+      <Button variant="ghost">
+        <IconSend className="text-[#737373]" />
       </Button>
     </div>
   );

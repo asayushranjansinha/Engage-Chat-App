@@ -1,22 +1,27 @@
-import ChatList from "@/components/chat-list";
+"use client";
+
+import { useEffect, useState } from "react";
 import ContactList from "@/components/contact-list";
-
+import ChatHistorySection from "@/components/chat-history";
+import ContactListMobile from "@/components/contact-list-mobile";
 const CreateChatPage = () => {
-  return (
-    <main className="w-full min-h-svh bg-purple-1 dark:bg-background">
-      <div className="container mx-auto py-10 pt-20 flex gap-5 max-lg:gap-8">
-        {/* Chat list wrapper */}
-        <div className="w-1/3 max-lg:w-1/2 max-md:hidden">
-          <ChatList />
-        </div>
+  const [isMounted, setIsMounted] = useState<boolean>(false);
+  useEffect(() => {
+    setIsMounted(true);
+    return () => setIsMounted(false);
+  }, []);
 
-        {/* Contact list wrapper */}
-        <div className="w-2/3 max-lg:w-1/2 max-md:w-full">
-          <ContactList />
-        </div>
+  return isMounted ? (
+    <main className="h-svh container mx-auto pt-20 py-4 px-1 flex gap-2">
+      <div className="w-full h-full lg:w-1/2 flex flex-col gap-2">
+        <ContactListMobile />
+        <ChatHistorySection />
+      </div>
+      <div className="hidden lg:flex flex-col gap-2 h-full flex-1">
+        <ContactList />
       </div>
     </main>
-  );
-};
+  ) : null;
+};          
 
 export default CreateChatPage;

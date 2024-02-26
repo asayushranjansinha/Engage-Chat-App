@@ -5,7 +5,6 @@ import Link from "next/link";
 import React, { useState } from "react";
 
 import { Lock, Mail, SquareUserRound } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";

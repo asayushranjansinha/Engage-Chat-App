@@ -12,7 +12,7 @@ const NavbarSection = () => {
   const { data: session } = useSession();
 
   return (
-    <div className="fixed top-0 inset-x-0 bg-transparent backdrop-filter backdrop-blur-sm z-[99999]">
+    <div className="fixed top-0 inset-x-0 border-b bg-transparent backdrop-filter backdrop-blur-sm z-50">
       <div className="container mx-auto py-4 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">

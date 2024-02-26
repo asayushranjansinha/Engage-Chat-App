@@ -7,7 +7,7 @@ import { ConversationType } from "@/types";
 const ChatBox = ({ conversation }: { conversation: IConversationDocument }) => {
   const lastMessageAt = conversation.lastMessageAt;
 
-  console.log(conversation);
+  // console.log(conversation);
   return (
     <Link
       href={`/chats/${conversation._id}`}

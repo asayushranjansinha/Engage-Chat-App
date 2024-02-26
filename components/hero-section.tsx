@@ -1,13 +1,14 @@
 "use client";
 import { welcomeHeading } from "@/data/constants";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useAuthModal } from "./hooks/authmodal-store";
 import ShimmerButton from "./ui/shimmer-button";
 import { TypewriterEffectSmooth } from "./ui/typewriter-effect";
-import Link from "next/link";
-import { useAuthModal } from "./hooks/authmodal-store";
 
 const HeroSection = () => {
   const modal = useAuthModal();
+  const router = useRouter();
   const { data: session } = useSession();
   const currentUser = session?.user;
 
@@ -19,12 +20,11 @@ const HeroSection = () => {
       </h1>
       <TypewriterEffectSmooth words={welcomeHeading} />
       {currentUser ? (
-        <Link href="/chats">
-          <ShimmerButton
-            title="Welcome aboard! Let's chat and connect."
-            className="w-fit"
-          />
-        </Link>
+        <ShimmerButton
+          title="Welcome aboard! Let's chat and connect."
+          className="w-fit"
+          onClick={() => router.push('/chats')}
+        />
       ) : (
         <ShimmerButton
           title="Log In! Let's chat and connect."
