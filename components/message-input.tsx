@@ -70,21 +70,13 @@ const MessageInput = () => {
     } catch (error) {}
   };
   return (
-    <div className="w-full relative group flex items-center gap-1 p-1 bg-white dark:bg-black rounded-lg">
-      <Input
-        placeholder="Type Here"
-        autoFocus
-        alt="Message Input"
-        className="bg-transparent border-none"
-      />
+    <div className="w-full group px-2 focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2 flex items-center gap-1 p-1 bg-white dark:bg-black rounded-lg">
       {/* Attach Files */}
       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="ghost">
-            <IconPaperclip className="text-[#737373]" />
-          </Button>
+        <DropdownMenuTrigger className="cursor-pointer">
+          <IconPaperclip className="text-gray-500" />
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="mr-2">
+        <DropdownMenuContent className="ml-2">
           <DropdownMenuLabel>Attachments</DropdownMenuLabel>
 
           <DropdownMenuItem>
@@ -105,6 +97,13 @@ const MessageInput = () => {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
+      
+      <Input
+        placeholder="Type Here"
+        autoFocus
+        alt="Message Input"
+        className="border-none focus-visible:ring-0 focus-visible:ring-offset-0 bg-transparent"
+      />
 
       {/* Send */}
       <Button variant="ghost">

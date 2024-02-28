@@ -6,7 +6,7 @@ import {
   IconLock,
   IconMessages,
   IconNotification,
-  IconUsersGroup
+  IconUsersGroup,
 } from "@tabler/icons-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -270,44 +270,52 @@ const SkeletonFive = () => {
       whileHover="animate"
       className="flex flex-1 w-full h-full min-h-[6rem] bg-green-background dark:bg-blue-background flex-col justify-center space-y-2 p-2 rounded-lg"
     >
-      <motion.div
-        variants={variants}
-        className="flex flex-row rounded-2xl border p-2 items-start space-x-2 bg-white dark:bg-black"
-      >
-        <Image
-          src="https://res.cloudinary.com/dn6ze90sb/image/upload/v1708009228/chat-app/qyxcz4bpn0n7jexmwmzb.jpg"
-          alt="avatar"
-          height="100"
-          width="100"
-          className="rounded-full h-8 w-8 shrink-0"
-        />
-        <p className="text-xs text-muted-foreground">
-          Could you please suggest the best texting app you have used?
-        </p>
+      <motion.div variants={variantsSecond} className="w-full chat chat-end">
+        <div className="chat-image avatar">
+          <Image
+            src="https://res.cloudinary.com/dn6ze90sb/image/upload/v1709138186/20042511-high_res-normal_people_naseos.jpg"
+            alt="User Profile Photo"
+            width={100}
+            height={100}
+            quality={70}
+            className="!h-10 !w-10 rounded-full shrink-0"
+          />
+        </div>
+
+        <div className="w-full chat-bubble chat-bubble-success text-xs flex items-center text-justify">
+          My phone’s broken, it doesn’t have your number in it
+        </div>
       </motion.div>
-      <motion.div
-        variants={variantsSecond}
-        className="flex flex-row rounded-full border p-2 items-center justify-end space-x-2 w-3/4 ml-auto bg-white dark:bg-black"
-      >
-        <p className="text-xs text-muted-foreground text-end">
-          Use Engage its my favourite.
-        </p>
-        <div className="h-6 w-6 rounded-full bg-gradient-to-r from-pink-500 to-violet-500 flex-shrink-0" />
+      <motion.div variants={variantsSecond} className="w-full chat chat-start">
+        <div className="chat-image avatar">
+          <Image
+            src="https://res.cloudinary.com/dn6ze90sb/image/upload/v1709138107/marianne-in-normal-people-1591049068_e7ngjb.png"
+            alt="User Profile Photo"
+            width={100}
+            height={100}
+            quality={70}
+            className="!h-10 !w-10 rounded-full shrink-0"
+          />
+        </div>
+        <div className="chat-bubble chat-bubble-info text-xs flex items-center text-justify">
+          My mom told me not to talk to strangers online, but I’ll make an
+          exception for you.
+        </div>
       </motion.div>
     </motion.div>
   );
 };
 const items = [
   {
-    title: "Secure Messaging",
+    title: "Group Chats Made Easy",
     description: (
       <span className="text-sm">
-        Experience the thrill without being tracked.
+        Organize conversations with friends, family, and colleagues.
       </span>
     ),
     header: <SkeletonOne />,
     className: "md:col-span-1",
-    icon: <IconLock   className="h-4 w-4 text-neutral-500" />,
+    icon: <IconUsersGroup className="h-4 w-4 text-neutral-500" />,
   },
   {
     title: "Endless Conversations",
@@ -318,7 +326,7 @@ const items = [
     ),
     header: <SkeletonTwo />,
     className: "md:col-span-1",
-    icon: <IconMessages  className="h-4 w-4 text-neutral-500" />,
+    icon: <IconMessages className="h-4 w-4 text-neutral-500" />,
   },
   {
     title: "Dual Theme",
@@ -340,18 +348,17 @@ const items = [
     ),
     header: <SkeletonFour />,
     className: "md:col-span-2",
-    icon: <IconNotification  className="h-4 w-4 text-neutral-500" />,
+    icon: <IconNotification className="h-4 w-4 text-neutral-500" />,
   },
-
   {
-    title: "Group Chats Made Easy",
+    title: "Secure Messaging",
     description: (
       <span className="text-sm">
-        Organize conversations with friends, family, and colleagues.
+        Experience the thrill without being tracked.
       </span>
     ),
     header: <SkeletonFive />,
     className: "md:col-span-1",
-    icon: <IconUsersGroup  className="h-4 w-4 text-neutral-500" />,
+    icon: <IconLock className="h-4 w-4 text-neutral-500" />,
   },
 ];
