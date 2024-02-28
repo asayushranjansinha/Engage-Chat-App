@@ -49,7 +49,7 @@ const MessagePage = () => {
                 <time className="text-xs ml-1">12:46</time>
               </div>
               <div className="chat-bubble chat-bubble-success">
-                I can't connect this life and that life. It just doesn't fit
+                I can&apos;t connect this life and that life. It just doesn&apos;t fit
               </div>
               <div className="chat-footer opacity-50">Seen at 12:46</div>
             </div>
