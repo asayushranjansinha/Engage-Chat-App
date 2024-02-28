@@ -19,9 +19,9 @@ const NavbarSection = () => {
           <Image
             src="/logo.png"
             alt="avatar"
-            height="60"
-            width="60"
-            // className="h-10 w-24"
+            height={100}
+            width={100}
+            className="w-10 h-10"
             quality={100}
             priority
           />

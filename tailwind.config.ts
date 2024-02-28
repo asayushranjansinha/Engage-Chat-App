@@ -108,6 +108,8 @@ const config = {
     },
   },
   plugins: [
+    require('tailwindcss'),
+    require('autoprefixer'),
     require("@tailwindcss/aspect-ratio"),
     function ({ matchUtilities, theme }: any) {
       matchUtilities(

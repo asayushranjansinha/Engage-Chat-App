@@ -1,20 +1,17 @@
 import mongoose, { Document } from "mongoose";
 
 export interface IRegisterFormProps {
-    defaultValues: {
-        username: string;
-        email: string;
-        password: string;
-    }
+    /**
+   * Function to switch between tabs (e.g., login and registration)
+   * 
+   * @param {void} - No parameters are passed to the function.
+   * @returns {void} - The function does not return any value.
+   */
+    switchTab: () => void;
 }
-export interface ILoginFormProps {
-    defaultValues: {
-        username: string;
-        password: string;
-    }
-}
+
 export interface IUser extends Document {
-    _id:string;
+    _id: string;
     username: string;
     name: string;
     email: string;
@@ -26,5 +23,5 @@ export interface IUser extends Document {
 export enum ConversationType {
     GROUP = 'group',
     INDIVIDUAL = 'individual',
-  }
-export interface IProfilePageProps extends IUser{}
+}
+export interface IProfilePageProps extends IUser { }
