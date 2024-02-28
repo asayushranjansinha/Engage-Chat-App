@@ -108,6 +108,7 @@ const config = {
     },
   },
   plugins: [
+    require("daisyui"),
     require('tailwindcss'),
     require('autoprefixer'),
     require("@tailwindcss/aspect-ratio"),
